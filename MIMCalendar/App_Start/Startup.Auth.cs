@@ -54,15 +54,15 @@ namespace MIMCalendar
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "219831255113130",
+               appSecret: "d1b53d6a96b1ba05e719fd965426000c");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "870420773282-vupa5rf5hn0vef1ssfro9eeacqf9pc3u.apps.googleusercontent.com",
+                ClientSecret = "8yzakTiovlGV4IeFDwJMVAOT"
+            });
         }
     }
 }
