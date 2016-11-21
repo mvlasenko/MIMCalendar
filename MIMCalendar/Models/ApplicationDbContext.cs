@@ -27,9 +27,14 @@ namespace MIMCalendar.Models
                 .HasForeignKey(e => e.GameId);
 
             modelBuilder.Entity<ApplicationUser>()
-                .HasOptional(e => e.Team)
+                .HasMany(e => e.Teams)
                 .WithMany(e => e.Users)
-                .HasForeignKey(e => e.TeamId);
+                .Map(m =>
+                {
+                    m.MapLeftKey("UserId");
+                    m.MapRightKey("TeamId");
+                    m.ToTable("UserTeams");
+                });
         }
     }
 }
