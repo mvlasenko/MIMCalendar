@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using MIMCalendar.Models.MG;
 
 namespace MIMCalendar.Models
 {
@@ -9,6 +10,8 @@ namespace MIMCalendar.Models
         {
             this.Users = new List<ApplicationUser>();
             this.EmailMessages = new List<EmailMessage>();
+            this.InputStatus = new List<InputStatus>();
+            this.Inputs = new List<Input>();
         }
 
         [Key]
@@ -28,5 +31,9 @@ namespace MIMCalendar.Models
         public virtual ICollection<ApplicationUser> Users { get; set; }
 
         public virtual ICollection<EmailMessage> EmailMessages { get; set; }
+
+        public virtual ICollection<InputStatus> InputStatus { get; set; }
+
+        public virtual ICollection<Input> Inputs { get; set; }
     }
 }

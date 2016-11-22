@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using MIMCalendar.Models.MG;
 
 namespace MIMCalendar.Models
 {
@@ -24,5 +25,7 @@ namespace MIMCalendar.Models
         public virtual ICollection<Team> Teams { get; set; }
 
         public virtual ICollection<EmailMessage> EmailMessages { get; set; }
+
+        public virtual ICollection<InputStatus> InputStatus { get; set; }
     }
 }

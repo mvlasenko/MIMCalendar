@@ -184,6 +184,16 @@
     <Compile Include="Models\Game.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MG\Enums.cs" />
+    <Compile Include="Models\MG\Input.cs" />
+    <Compile Include="Models\MG\InputDefinition.cs" />
+    <Compile Include="Models\MG\InputStatus.cs" />
+    <Compile Include="Models\MG\InputSubType.cs" />
+    <Compile Include="Models\MG\InputType.cs" />
+    <Compile Include="Models\MG\Market.cs" />
+    <Compile Include="Models\MG\Period.cs" />
+    <Compile Include="Models\MG\Product.cs" />
+    <Compile Include="Models\MG\Unit.cs" />
     <Compile Include="Models\Team.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
