@@ -22,5 +22,7 @@ namespace MIMCalendar.Models
         }
 
         public virtual ICollection<Team> Teams { get; set; }
+
+        public virtual ICollection<EmailMessage> EmailMessages { get; set; }
     }
 }

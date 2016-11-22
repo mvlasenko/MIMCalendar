@@ -3,13 +3,15 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MIMCalendar.Models
 {
-    public partial class Team
+    public class Team
     {
         public Team()
         {
-            Users = new HashSet<ApplicationUser>();
+            this.Users = new List<ApplicationUser>();
+            this.EmailMessages = new List<EmailMessage>();
         }
 
+        [Key]
         public int Id { get; set; }
 
         public int GameId { get; set; }
@@ -24,5 +26,7 @@ namespace MIMCalendar.Models
         public virtual Game Game { get; set; }
 
         public virtual ICollection<ApplicationUser> Users { get; set; }
+
+        public virtual ICollection<EmailMessage> EmailMessages { get; set; }
     }
 }
