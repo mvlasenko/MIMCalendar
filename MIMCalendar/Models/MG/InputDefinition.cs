@@ -45,7 +45,7 @@ namespace MIMCalendar.Models.MG
 
         public bool Percent100 { get; set; }
 
-        public int? Order { get; set; }
+        public int? Seq { get; set; }
 
         public virtual InputType InputType { get; set; }
 

@@ -181,6 +181,12 @@
     <Compile Include="Models\EmailMessage.cs" />
     <Compile Include="Models\EmailTemplate.cs" />
     <Compile Include="Models\Enums.cs" />
+    <Compile Include="Models\Eval\Answer.cs" />
+    <Compile Include="Models\Eval\Evaluation.cs" />
+    <Compile Include="Models\Eval\Option.cs" />
+    <Compile Include="Models\Eval\Enums.cs" />
+    <Compile Include="Models\Eval\Peer.cs" />
+    <Compile Include="Models\Eval\Question.cs" />
     <Compile Include="Models\Game.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\ManageViewModels.cs" />

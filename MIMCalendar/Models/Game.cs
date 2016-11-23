@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using MIMCalendar.Models.Eval;
 using MIMCalendar.Models.MG;
 
 namespace MIMCalendar.Models
@@ -11,6 +12,7 @@ namespace MIMCalendar.Models
             this.Teams = new List<Team>();
             this.EmailMessages = new List<EmailMessage>();
             this.Periods = new List<Period>();
+            this.Peers = new List<Peer>();
         }
 
         [Key]
@@ -31,5 +33,7 @@ namespace MIMCalendar.Models
         public virtual ICollection<EmailMessage> EmailMessages { get; set; }
 
         public virtual ICollection<Period> Periods { get; set; }
+
+        public virtual ICollection<Peer> Peers { get; set; }
     }
 }

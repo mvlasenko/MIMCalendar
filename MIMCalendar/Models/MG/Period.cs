@@ -16,7 +16,7 @@ namespace MIMCalendar.Models.MG
         [Key]
         public int Id { get; set; }
 
-        public int? GameId { get; set; }
+        public int GameId { get; set; }
 
         public byte PeriodNumber { get; set; }
 
