@@ -17,6 +17,8 @@ namespace MIMCalendar.Models.Eval
 
         public int PeerId { get; set; }
 
+        [Required]
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime Created { get; set; }
 
         public virtual ApplicationUser Evaluator { get; set; }

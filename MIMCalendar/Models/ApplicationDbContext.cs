@@ -1,6 +1,7 @@
 ﻿using System.Data.Entity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using MIMCalendar.Models.Eval;
+using MIMCalendar.Models.Gallery;
 using MIMCalendar.Models.MG;
 
 namespace MIMCalendar.Models
@@ -53,6 +54,16 @@ namespace MIMCalendar.Models
         public virtual DbSet<Evaluation> Evaluations { get; set; }
 
         public virtual DbSet<Answer> Answers { get; set; }
+
+        //articles
+
+        public virtual DbSet<Article> Articles { get; set; }
+
+        //gallery
+
+        public virtual DbSet<Slide> Slides { get; set; }
+
+        public virtual DbSet<Slideshow> Slideshows { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -220,6 +231,15 @@ namespace MIMCalendar.Models
                 .HasRequired(e => e.Option)
                 .WithMany(e => e.Answers)
                 .HasForeignKey(e => e.OptionId);
+
+            //gallery
+
+            modelBuilder.Entity<Slide>()
+                .HasRequired(e => e.Slideshow)
+                .WithMany(e => e.Slides)
+                .HasForeignKey(e => e.SlideshowId);
+
+
         }
     }
 }

@@ -18,7 +18,9 @@ namespace MIMCalendar.Models.MG
 
         public int TeamId { get; set; }
 
-        public DateTime? Saved { get; set; }
+        [Required]
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public DateTime Created { get; set; }
 
         public virtual InputType InputType { get; set; }
 

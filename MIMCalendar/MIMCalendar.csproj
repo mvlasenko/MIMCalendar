@@ -178,6 +178,9 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
+    <Compile Include="Models\Article.cs" />
+    <Compile Include="Models\Calendar\Lesson.cs" />
+    <Compile Include="Models\Calendar\Room.cs" />
     <Compile Include="Models\EmailMessage.cs" />
     <Compile Include="Models\EmailTemplate.cs" />
     <Compile Include="Models\Enums.cs" />
@@ -187,6 +190,8 @@
     <Compile Include="Models\Eval\Enums.cs" />
     <Compile Include="Models\Eval\Peer.cs" />
     <Compile Include="Models\Eval\Question.cs" />
+    <Compile Include="Models\Gallery\Slide.cs" />
+    <Compile Include="Models\Gallery\Slideshow.cs" />
     <Compile Include="Models\Game.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
