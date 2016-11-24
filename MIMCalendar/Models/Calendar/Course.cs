@@ -4,8 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MIMCalendar.Models.Calendar
 {
-    [Table("Calendar_Rooms")]
-    public class Room
+    [Table("Calendar_Courses")]
+    public class Course
     {
         [Key]
         public int Id { get; set; }
@@ -13,6 +13,10 @@ namespace MIMCalendar.Models.Calendar
         [Required]
         [StringLength(50)]
         public string Name { get; set; }
+
+        public virtual ICollection<ApplicationUser> Teachers { get; set; }
+
+        public virtual ICollection<Group> Groups { get; set; }
 
         public virtual ICollection<Lesson> Lessons { get; set; }
     }

@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using MIMCalendar.Models.MG;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace MIMCalendar.Models
+namespace MIMCalendar.Models.MG
 {
+    [Table("MG_Teams")]
     public class Team
     {
         public Team()

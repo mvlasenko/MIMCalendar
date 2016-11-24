@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using MIMCalendar.Models.MG;
 
 namespace MIMCalendar.Models
 {
@@ -16,7 +17,7 @@ namespace MIMCalendar.Models
 
         public int EmailTemplateId { get; set; }
 
-        public int? GameId { get; set; }
+        public int? GroupId { get; set; }
 
         public int? TeamId { get; set; }
 
@@ -24,7 +25,7 @@ namespace MIMCalendar.Models
 
         public virtual EmailTemplate EmailTemplate { get; set; }
 
-        public virtual Game Game { get; set; }
+        public virtual Group Group { get; set; }
 
         public virtual Team Team { get; set; }
 

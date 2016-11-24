@@ -25,9 +25,9 @@ namespace MIMCalendar.Models.Eval
         [StringLength(50)]
         public string Name_rus { get; set; }
 
-        public int GameId { get; set; }
+        public int GroupId { get; set; }
 
-        public virtual Game Game { get; set; }
+        public virtual Group Group { get; set; }
 
         public virtual ICollection<Question> Questions { get; set; }
 

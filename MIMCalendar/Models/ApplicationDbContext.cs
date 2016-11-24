@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using MIMCalendar.Models.Calendar;
 using MIMCalendar.Models.Eval;
 using MIMCalendar.Models.Gallery;
 using MIMCalendar.Models.MG;
@@ -17,14 +18,19 @@ namespace MIMCalendar.Models
             return new ApplicationDbContext();
         }
 
-        public virtual DbSet<Game> Games { get; set; }
-        public virtual DbSet<Team> Teams { get; set; }
+        public virtual DbSet<Group> Groups { get; set; }
 
         //email management
         public virtual DbSet<EmailTemplate> EmailTemplates { get; set; }
+
         public virtual DbSet<EmailMessage> EmailMessages { get; set; }
 
         //management game
+
+        public virtual DbSet<Game> Games { get; set; }
+
+        public virtual DbSet<Team> Teams { get; set; }
+
         public virtual DbSet<Period> Periods { get; set; }
 
         public virtual DbSet<Product> Products { get; set; }
@@ -65,6 +71,14 @@ namespace MIMCalendar.Models
 
         public virtual DbSet<Slideshow> Slideshows { get; set; }
 
+        //calendar
+
+        public virtual DbSet<Course> Courses { get; set; }
+
+        public virtual DbSet<Room> Rooms { get; set; }
+
+        public virtual DbSet<Lesson> Lessons { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -93,9 +107,9 @@ namespace MIMCalendar.Models
                 .HasForeignKey(e => e.EmailTemplateId);
 
             modelBuilder.Entity<EmailMessage>()
-                .HasOptional(e => e.Game)
+                .HasOptional(e => e.Group)
                 .WithMany(e => e.EmailMessages)
-                .HasForeignKey(e => e.GameId);
+                .HasForeignKey(e => e.GroupId);
 
             modelBuilder.Entity<EmailMessage>()
                 .HasOptional(e => e.Team)
@@ -113,6 +127,11 @@ namespace MIMCalendar.Models
                 });
 
             //management game
+
+            modelBuilder.Entity<Game>()
+                .HasRequired(e => e.Group)
+                .WithMany(e => e.Games)
+                .HasForeignKey(e => e.GroupId);
 
             modelBuilder.Entity<Period>()
                 .HasRequired(e => e.Game)
@@ -177,9 +196,9 @@ namespace MIMCalendar.Models
             //peer evaluation
 
             modelBuilder.Entity<Peer>()
-                .HasRequired(e => e.Game)
+                .HasRequired(e => e.Group)
                 .WithMany(e => e.Peers)
-                .HasForeignKey(e => e.GameId);
+                .HasForeignKey(e => e.GroupId);
 
             modelBuilder.Entity<Peer>()
                 .HasMany(e => e.Questions)
@@ -239,7 +258,47 @@ namespace MIMCalendar.Models
                 .WithMany(e => e.Slides)
                 .HasForeignKey(e => e.SlideshowId);
 
+            //calendar
 
+            modelBuilder.Entity<Course>()
+                .HasMany(e => e.Teachers)
+                .WithMany(e => e.Courses)
+                .Map(m =>
+                {
+                    m.MapLeftKey("CourseId");
+                    m.MapRightKey("TeacherId");
+                    m.ToTable("Calendar_CourseTeachers");
+                });
+
+            modelBuilder.Entity<Course>()
+                .HasMany(e => e.Groups)
+                .WithMany(e => e.Courses)
+                .Map(m =>
+                {
+                    m.MapLeftKey("CourseId");
+                    m.MapRightKey("GroupId");
+                    m.ToTable("Calendar_CourseGroups");
+                });
+
+            modelBuilder.Entity<Lesson>()
+                .HasRequired(e => e.Course)
+                .WithMany(e => e.Lessons)
+                .HasForeignKey(e => e.CourseId);
+
+            modelBuilder.Entity<Lesson>()
+                .HasRequired(e => e.Teacher)
+                .WithMany(e => e.TaughtLessons)
+                .HasForeignKey(e => e.TeacherId);
+
+            modelBuilder.Entity<Lesson>()
+                .HasRequired(e => e.Room)
+                .WithMany(e => e.Lessons)
+                .HasForeignKey(e => e.RoomId);
+
+            modelBuilder.Entity<Lesson>()
+                .HasRequired(e => e.Group)
+                .WithMany(e => e.Lessons)
+                .HasForeignKey(e => e.GroupId);
         }
     }
 }
