@@ -1,0 +1,131 @@
+﻿@model MIMCalendar.Models.MG.InputDefinition
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>InputDefinition</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.InputSubType.Name_eng)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InputSubType.Name_eng)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InputType.Name_eng)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InputType.Name_eng)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Market.Name_eng)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Market.Name_eng)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.Name_eng)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product.Name_eng)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Unit.Name_eng)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Unit.Name_eng)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name_eng)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name_eng)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name_ukr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name_ukr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name_rus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name_rus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Required)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Required)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Autofill)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Autofill)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Group)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Group)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NonMatch)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NonMatch)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Percent100)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Percent100)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Seq)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Seq)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

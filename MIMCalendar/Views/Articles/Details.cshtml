@@ -1,0 +1,99 @@
+﻿@model MIMCalendar.Models.Article
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Article</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Title_eng)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title_eng)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Title_ukr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title_ukr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Title_rus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title_rus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description_eng)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description_eng)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description_ukr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description_ukr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description_rus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description_rus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Body_eng)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Body_eng)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Body_ukr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Body_ukr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Body_rus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Body_rus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Created)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Created)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

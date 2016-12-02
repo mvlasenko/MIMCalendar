@@ -1,0 +1,112 @@
+﻿@model IEnumerable<MIMCalendar.Models.MG.InputDefinition>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.InputSubType.Name_eng)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InputType.Name_eng)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Market.Name_eng)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Product.Name_eng)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Unit.Name_eng)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name_eng)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name_ukr)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name_rus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Required)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Autofill)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Group)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NonMatch)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Percent100)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Seq)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.InputSubType.Name_eng)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InputType.Name_eng)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Market.Name_eng)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Product.Name_eng)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Unit.Name_eng)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name_eng)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name_ukr)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name_rus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Required)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Autofill)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Group)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NonMatch)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Percent100)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Seq)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
