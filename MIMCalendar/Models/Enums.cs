@@ -7,8 +7,7 @@ namespace MIMCalendar.Models
     {
         ToAdmin = 1,
         ToTeamMemebers = 2,
-        ToGameMemebers = 4,
-        ConfirmEmail = 8,
-        ConfirmEmailByAdminRequest = 16,
+        ToGroupMemebers = 4,
+        ConfirmEmail = 8
     }
 }

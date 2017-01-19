@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using MIMCalendar.Models;
+using MIMCalendar.ViewModels;
 
 namespace MIMCalendar.Controllers
 {
@@ -27,12 +27,12 @@ namespace MIMCalendar.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ApplicationUser applicationUser = db.Users.Find(id);
-            if (applicationUser == null)
+            ApplicationUser user = db.Users.Find(id);
+            if (user == null)
             {
                 return HttpNotFound();
             }
-            return View(applicationUser);
+            return View(user);
         }
 
         // GET: Users/Create
@@ -42,20 +42,24 @@ namespace MIMCalendar.Controllers
         }
 
         // POST: Users/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,FirstName,LastName,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] ApplicationUser applicationUser)
+        public ActionResult Create(CreateUserViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                db.Users.Add(applicationUser);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+            if (!ModelState.IsValid)
+                return View(model);
 
-            return View(applicationUser);
+            //todo: add password strength validation
+
+            var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName =  model.FirstName, LastName = model.LastName, PhoneNumber = model.PhoneNumber };
+            var result = UserManager.Create(user, "Qwerty@123");
+
+            if (!result.Succeeded)
+                return View(model);
+
+            UserManager.SendEmail(user.Id, "Confirm your account", GetEmailBody(user));
+
+            return RedirectToAction("Index");
         }
 
         // GET: Users/Edit/5
@@ -65,28 +69,26 @@ namespace MIMCalendar.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ApplicationUser applicationUser = db.Users.Find(id);
-            if (applicationUser == null)
+            ApplicationUser user = db.Users.Find(id);
+            if (user == null)
             {
                 return HttpNotFound();
             }
-            return View(applicationUser);
+            return View(user);
         }
 
         // POST: Users/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] ApplicationUser applicationUser)
+        public ActionResult Edit(ApplicationUser user)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(applicationUser).State = EntityState.Modified;
+                db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(applicationUser);
+            return View(user);
         }
 
         // GET: Users/Delete/5
@@ -96,12 +98,12 @@ namespace MIMCalendar.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ApplicationUser applicationUser = db.Users.Find(id);
-            if (applicationUser == null)
+            ApplicationUser user = db.Users.Find(id);
+            if (user == null)
             {
                 return HttpNotFound();
             }
-            return View(applicationUser);
+            return View(user);
         }
 
         // POST: Users/Delete/5
@@ -109,9 +111,38 @@ namespace MIMCalendar.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            ApplicationUser applicationUser = db.Users.Find(id);
-            db.Users.Remove(applicationUser);
+            ApplicationUser user = db.Users.Find(id);
+            db.Users.Remove(user);
             db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        // GET: Users/RequestEmailConfirmation/5
+        public ActionResult RequestEmailConfirmation(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ApplicationUser user = db.Users.Find(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View(user);
+        }
+
+        // POST: Users/RequestEmailConfirmation/5
+        [HttpPost, ActionName("RequestEmailConfirmation")]
+        [ValidateAntiForgeryToken]
+        public ActionResult RequestEmailConfirmationConfirmed(string id)
+        {
+            if (ModelState.IsValid)
+            {
+                ApplicationUser user = db.Users.Find(id);
+                UserManager.SendEmail(user.Id, "Confirm your account", GetEmailBody(user));
+            }
+
             return RedirectToAction("Index");
         }
 
@@ -123,5 +154,28 @@ namespace MIMCalendar.Controllers
             }
             base.Dispose(disposing);
         }
+
+        private ApplicationUserManager _userManager;
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
+
+        private string GetEmailBody(ApplicationUser user)
+        {
+            string code = UserManager.GenerateEmailConfirmationToken(user.Id);
+            var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+            //todo: take it from email template
+            //todo: make email send async or windows service based
+            return "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>";
+        }
+
     }
 }

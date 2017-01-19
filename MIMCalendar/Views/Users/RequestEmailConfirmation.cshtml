@@ -1,0 +1,25 @@
+﻿@model MIMCalendar.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "Request Email Confirmation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Request Email Confirmation</h2>
+
+<h3>The following Email will be sent to user @Model.FirstName @Model.LastName (@Model.Email) </h3>
+<div>
+
+    <div>
+        Please confirm your account by clicking ...
+    </div>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Send Email" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
