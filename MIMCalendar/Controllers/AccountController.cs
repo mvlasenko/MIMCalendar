@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using MIMCalendar.EmailEngine;
 using MIMCalendar.Models;
 using MIMCalendar.ViewModels;
 
@@ -133,16 +134,14 @@ namespace MIMCalendar.Controllers
             if (ModelState.IsValid)
             {
                 var user = await UserManager.FindByNameAsync(model.Email);
-                if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
+                if (user == null)
                 {
-                    // Don't reveal that the user does not exist or is not confirmed
-                    return View("ForgotPasswordConfirmation");
+                    // user does not exist
+                    return View("ForgotPasswordWrongEmail");
                 }
 
-                //todo: email templates
-                string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                EmailHelper.SendConfirmEmail(user, Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = UserManager.GenerateEmailConfirmationToken(user.Id) }, protocol: Request.Url.Scheme));
+
                 return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 
@@ -150,7 +149,6 @@ namespace MIMCalendar.Controllers
             return View(model);
         }
 
-        //
         // GET: /Account/ForgotPasswordConfirmation
         [AllowAnonymous]
         public ActionResult ForgotPasswordConfirmation()
@@ -160,16 +158,21 @@ namespace MIMCalendar.Controllers
 
         //
         // GET: /Account/ResetPassword
-        [AllowAnonymous]
         public ActionResult ResetPassword(string code)
         {
-            return code == null ? View("Error") : View();
+            if (code == null || !User.Identity.IsAuthenticated)
+                return View("Error");
+
+            ApplicationUser user = UserManager.FindById(User.Identity.GetUserId());
+
+            ResetPasswordViewModel model = new ResetPasswordViewModel { Code = code, Email = user.Email };
+
+            return View(model);
         }
 
         //
         // POST: /Account/ResetPassword
         [HttpPost]
-        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
         {
@@ -194,7 +197,6 @@ namespace MIMCalendar.Controllers
 
         //
         // GET: /Account/ResetPasswordConfirmation
-        [AllowAnonymous]
         public ActionResult ResetPasswordConfirmation()
         {
             return View();

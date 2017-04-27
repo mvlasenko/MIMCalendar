@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using MIMCalendar.EmailEngine;
 using MIMCalendar.Models;
 using MIMCalendar.ViewModels;
 
@@ -49,15 +50,13 @@ namespace MIMCalendar.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            //todo: add password strength validation
-
             var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName =  model.FirstName, LastName = model.LastName, PhoneNumber = model.PhoneNumber };
             var result = UserManager.Create(user, "Qwerty@123");
 
             if (!result.Succeeded)
                 return View(model);
 
-            UserManager.SendEmail(user.Id, "Confirm your account", GetEmailBody(user));
+            EmailHelper.SendConfirmEmail(user, Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = UserManager.GenerateEmailConfirmationToken(user.Id) }, protocol: Request.Url.Scheme));
 
             return RedirectToAction("Index");
         }
@@ -140,7 +139,7 @@ namespace MIMCalendar.Controllers
             if (ModelState.IsValid)
             {
                 ApplicationUser user = db.Users.Find(id);
-                UserManager.SendEmail(user.Id, "Confirm your account", GetEmailBody(user));
+                EmailHelper.SendConfirmEmail(user, Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = UserManager.GenerateEmailConfirmationToken(user.Id) }, protocol: Request.Url.Scheme));
             }
 
             return RedirectToAction("Index");
@@ -166,15 +165,6 @@ namespace MIMCalendar.Controllers
             {
                 _userManager = value;
             }
-        }
-
-        private string GetEmailBody(ApplicationUser user)
-        {
-            string code = UserManager.GenerateEmailConfirmationToken(user.Id);
-            var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-            //todo: take it from email template
-            //todo: make email send async or windows service based
-            return "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>";
         }
 
     }

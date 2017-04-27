@@ -57,6 +57,10 @@
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="RazorEngine, Version=3.9.3.0, Culture=neutral, PublicKeyToken=9ee697374c7e744a, processorArchitecture=MSIL">
+      <HintPath>..\packages\RazorEngine.3.9.3\lib\net45\RazorEngine.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -189,9 +193,12 @@
     <Compile Include="Controllers\MG\TeamsController.cs" />
     <Compile Include="Controllers\MG\UnitsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="EmailEngine\EmailHelper.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ExtensionHelpers.cs" />
+    <Compile Include="Helpers\XmlHelper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\Article.cs" />
@@ -247,6 +254,7 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="Images\logo_top.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
@@ -376,6 +384,7 @@
     <Content Include="Views\Inputs\Edit.cshtml" />
     <Content Include="Views\Inputs\Index.cshtml" />
     <Content Include="Views\Users\RequestEmailConfirmation.cshtml" />
+    <Content Include="Views\Account\ForgotPasswordWrongEmail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
